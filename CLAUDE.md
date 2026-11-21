@@ -20,7 +20,7 @@ Local: `~/projects/travels`. Sister projects with the same stack: `~/projects/ca
 The free plan allows only 2 projects (Style, Perfumes), so the travel tables live in Style next to Capsule's tables.
 Same login as Capsule (signups disabled). `supabase/schema.sql` = full travel schema; `node scripts/sql.mjs "<sql>"`.
 
-- `trips`: kind `trip|dream`, title, destination, start_date, end_date, cover_path, hotel_url, notes, why (dream
+- `trips`: kind `trip|dream`, title, destination, best_time (dreams: when to go, free text), start_date, end_date, cover_path, hotel_url, notes, why (dream
   reason), rating 1–5, impression, photos[]. "Turn into a trip" = set kind 'trip' + dates (places stay attached).
 - `trip_places`: trip_id, name, category `see|do|eat`, city (optional city/region; the list groups and filters by it,
   quick add keeps the last city), url, note, status `want|been`, day (1-based, null = not

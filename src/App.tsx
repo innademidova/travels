@@ -153,6 +153,7 @@ function TripCard({ trip }: { trip: Trip }) {
       <div className="trip-card-body">
         <b>{trip.title}</b>
         {trip.destination && <span className="muted small">{trip.destination}</span>}
+        {trip.kind === 'dream' && trip.best_time && <span className="small muted">🗓 {trip.best_time}</span>}
         {trip.kind === 'dream' && citiesOf(mine).length > 0 && <span className="small card-cities">📍 {citiesOf(mine).slice(0, 4).join(' · ')}</span>}
         <span className="small card-meta">
           {trip.kind === 'trip' && trip.start_date && <span>{formatRange(trip.start_date, trip.end_date)}</span>}

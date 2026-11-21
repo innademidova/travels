@@ -114,7 +114,8 @@
     "convert": "Turn into a trip",
     "convertHint": "Pick dates — all places move with it",
     "convertText": "The dream becomes a trip with dates. All places, links and notes stay.",
-    "convertGo": "Make it a trip"
+    "convertGo": "Make it a trip",
+    "when": "When to go"
   },
   "trip": {
     "days_one": "{{count}} day",
@@ -149,7 +150,8 @@
     "notesPhDream": "Best season, budget, how to get there…",
     "needTitle": "Add a title",
     "deleteTrip": "Delete trip",
-    "deleteDream": "Delete dream"
+    "deleteDream": "Delete dream",
+    "whenPh": "End of October, for Halloween"
   },
   "home": {
     "stats": "{{trips}} trips · {{dreams}} dreams",

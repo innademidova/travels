@@ -58,3 +58,6 @@ create policy "travel own folder" on storage.objects for all to authenticated
 
 -- 2026-11-21: city or region inside a trip/dream (dreams are kept per country, places narrowed down to cities)
 alter table trip_places add column if not exists city text;
+
+-- 2026-11-21: when a dream should happen (free text: "end of October, Halloween")
+alter table trips add column if not exists best_time text;

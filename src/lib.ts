@@ -23,6 +23,7 @@ export type Trip = {
   hotel_url: string | null
   notes: string | null
   why: string | null
+  best_time: string | null
   rating: number | null
   impression: string | null
   photos: string[]

@@ -29,6 +29,7 @@ export function TripPage({ trip, tab }: { trip: Trip; tab: string | undefined })
           {dream && <span className="pill">✨ {t('dream.badge')}</span>}
           <h1>{trip.title}</h1>
           {trip.destination && <p><Icon name="pin" size={16} /> {trip.destination}</p>}
+          {dream && trip.best_time && <p><Icon name="calendar" size={16} /> {trip.best_time}</p>}
           {!dream && trip.start_date && (
             <p><Icon name="calendar" size={16} /> {formatRange(trip.start_date, trip.end_date)}
               {days > 1 && <> · {t('trip.days', { count: days })}</>}
@@ -157,7 +158,7 @@ export function TripForm({ trip, kind }: { trip?: Trip; kind: Kind }) {
   const dream = kind === 'dream'
   const [f, setF] = useState({
     title: trip?.title ?? '', destination: trip?.destination ?? '', start_date: trip?.start_date ?? '', end_date: trip?.end_date ?? '',
-    hotel_url: trip?.hotel_url ?? '', notes: trip?.notes ?? '', why: trip?.why ?? '', cover_path: trip?.cover_path ?? null as string | null,
+    hotel_url: trip?.hotel_url ?? '', notes: trip?.notes ?? '', why: trip?.why ?? '', best_time: trip?.best_time ?? '', cover_path: trip?.cover_path ?? null as string | null,
   })
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -171,7 +172,7 @@ export function TripForm({ trip, kind }: { trip?: Trip; kind: Kind }) {
     const row: Partial<Trip> = {
       kind, title: f.title.trim(), destination: f.destination.trim() || null, notes: f.notes.trim() || null, cover_path: f.cover_path,
       ...(dream
-        ? { why: f.why.trim() || null }
+        ? { why: f.why.trim() || null, best_time: f.best_time.trim() || null }
         : { start_date: f.start_date || null, end_date: f.end_date || f.start_date || null, hotel_url: f.hotel_url.trim() ? normalizeUrl(f.hotel_url) : null, why: f.why.trim() || null }),
     }
     try {
@@ -216,6 +217,10 @@ export function TripForm({ trip, kind }: { trip?: Trip; kind: Kind }) {
             <label className="field"><span>{t('trip.hotel')}</span>
               <input value={f.hotel_url} inputMode="url" autoCapitalize="off" placeholder="https://booking.com/…" onChange={e => set({ hotel_url: e.target.value })} /></label>
           </>
+        )}
+        {dream && (
+          <label className="field"><span>{t('dream.when')}</span>
+            <input value={f.best_time} placeholder={t('form.whenPh')} onChange={e => set({ best_time: e.target.value })} /></label>
         )}
         {(dream || f.why) && (
           <label className="field"><span>{t('dream.why')}</span>
