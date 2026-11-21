@@ -175,5 +175,12 @@
   "city": {
     "all": "All cities",
     "none": "No city"
+  },
+  "todo": {
+    "title": "To do",
+    "add": "Add a task…",
+    "allDone": "All done 🎉",
+    "remove": "Remove",
+    "progress": "{{done}} of {{total}}"
   }
 }

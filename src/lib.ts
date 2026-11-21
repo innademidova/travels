@@ -27,9 +27,12 @@ export type Trip = {
   rating: number | null
   impression: string | null
   photos: string[]
+  todos: Todo[]
   created_at: string
   updated_at: string
 }
+
+export type Todo = { id: string; text: string; done: boolean }
 
 export type Place = {
   id: string

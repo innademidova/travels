@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { t } from './i18n'
 import { useStore } from './store'
-import { countdown, formatRange, normalizeUrl, removePhotos, tripDays, whenOf, type Kind, type Trip } from './lib'
+import { countdown, formatRange, normalizeUrl, removePhotos, tripDays, whenOf, type Kind, type Todo, type Trip } from './lib'
 import { AutoField, ConfirmDelete, Cover, Icon, LinkChip, PhotoButton, PhotoGrid, Segmented, Sheet, Stars, go } from './ui'
 import { PlaceRow, PlaceSheet, PlacesList } from './Places'
 import { Plan } from './Plan'
@@ -52,6 +52,7 @@ export function TripPage({ trip, tab }: { trip: Trip; tab: string | undefined })
               {trip.notes && <p className="pre">{trip.notes}</p>}
             </div>
           )}
+          {(!dream || trip.todos?.length > 0) && <Todos trip={trip} />}
           {dream && (
             <button className="card convert" onClick={() => setConvert(true)}>
               <Icon name="plane" size={22} />
@@ -75,6 +76,49 @@ export function TripPage({ trip, tab }: { trip: Trip; tab: string | undefined })
         {current === 'memories' && <Memories trip={trip} />}
       </div>
       {convert && <ConvertSheet trip={trip} onClose={() => setConvert(false)} />}
+    </div>
+  )
+}
+
+// Checklist of things to arrange before the trip; done items sink to the bottom
+function Todos({ trip }: { trip: Trip }) {
+  const { updateTrip } = useStore()
+  const [text, setText] = useState('')
+  const todos = trip.todos ?? []
+  const save = (list: Todo[]) => updateTrip(trip.id, { todos: list })
+  const add = () => {
+    const v = text.trim()
+    if (!v) return
+    save([...todos, { id: crypto.randomUUID(), text: v, done: false }])
+    setText('')
+  }
+  const sorted = [...todos.filter(x => !x.done), ...todos.filter(x => x.done)]
+  const done = todos.filter(x => x.done).length
+  return (
+    <div className="card todos">
+      <div className="row">
+        <h4 className="grow">✅ {t('todo.title')}</h4>
+        {todos.length > 0 && (
+          <span className="muted small">{done === todos.length ? t('todo.allDone') : t('todo.progress', { done, total: todos.length })}</span>
+        )}
+      </div>
+      <ul>
+        {sorted.map(x => (
+          <li key={x.id} className={x.done ? 'done' : ''}>
+            <button className="tick" aria-pressed={x.done} onClick={() => save(todos.map(y => (y.id === x.id ? { ...y, done: !y.done } : y)))}>
+              {x.done && <Icon name="check" size={14} />}
+            </button>
+            <span className="grow pre">{x.text}</span>
+            <button className="icon-btn" aria-label={t('todo.remove')} onClick={() => save(todos.filter(y => y.id !== x.id))}>
+              <Icon name="close" size={14} />
+            </button>
+          </li>
+        ))}
+      </ul>
+      <form className="todo-add" onSubmit={e => { e.preventDefault(); add() }}>
+        <input value={text} onChange={e => setText(e.target.value)} placeholder={t('todo.add')} enterKeyHint="done" />
+        {text.trim() && <button className="round small-round" aria-label={t('todo.add')}><Icon name="plus" size={16} /></button>}
+      </form>
     </div>
   )
 }

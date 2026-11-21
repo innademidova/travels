@@ -21,7 +21,8 @@ The free plan allows only 2 projects (Style, Perfumes), so the travel tables liv
 Same login as Capsule (signups disabled). `supabase/schema.sql` = full travel schema; `node scripts/sql.mjs "<sql>"`.
 
 - `trips`: kind `trip|dream`, title, destination, best_time (dreams: when to go, free text), start_date, end_date, cover_path, hotel_url, notes, why (dream
-  reason), rating 1–5, impression, photos[]. "Turn into a trip" = set kind 'trip' + dates (places stay attached).
+  reason), rating 1–5, impression, photos[], todos (jsonb `[{id,text,done}]`, the "To do" checklist card on the trip page;
+  shown for trips always, for dreams only when not empty). "Turn into a trip" = set kind 'trip' + dates (places stay attached).
 - `trip_places`: trip_id, name, category `see|do|eat`, city (optional city/region; the list groups and filters by it,
   quick add keeps the last city), url, note, status `want|been`, day (1-based, null = not
   planned; a day beyond the trip length counts as not planned), sort (float, order inside a day), rating, impression, photos[].
@@ -36,6 +37,8 @@ adds a "ℹ️ Довідка" block (facts checked by web search) and photos: h
 from Wikimedia Commons (API search, 1280px thumbs; the API rate-limits, so pause between requests), with a
 "Фото: Wikimedia Commons — author (licence)" line at the end of the note. Photos are shown for every place (not only
 visited ones): the first one large at the top of the place sheet and as the thumbnail in lists.
+For hikes she wants an AllTrails link in the place url (best-reviewed matching trail; alternatives in the note).
+Real trips being planned (e.g. Finland, Feb 2027) get a todo checklist; help her work through it when asked.
 
 ## Code
 

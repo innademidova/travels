@@ -61,3 +61,6 @@ alter table trip_places add column if not exists city text;
 
 -- 2026-11-21: when a dream should happen (free text: "end of October, Halloween")
 alter table trips add column if not exists best_time text;
+
+-- Checklist of things to do before a trip: [{ id, text, done }]
+alter table trips add column if not exists todos jsonb not null default '[]'::jsonb;
