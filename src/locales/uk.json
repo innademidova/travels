@@ -1,0 +1,67 @@
+{
+  "app": { "name": "Мої подорожі" },
+  "languages": { "uk": "Українська", "en": "English" },
+  "login": { "text": "Увійди тим самим акаунтом, що й у Capsule.", "email": "Пошта", "password": "Пароль", "go": "Увійти", "failed": "Неправильна пошта або пароль" },
+  "common": { "uploading": "Завантажую…", "close": "Закрити", "confirmDelete": "Натисни ще раз, щоб видалити", "delete": "Видалити", "done": "Готово", "cancel": "Скасувати", "save": "Зберегти", "back": "Назад", "edit": "Змінити", "notFound": "Не знайдено. Можливо, це видалено." },
+  "photos": { "add": "Додати фото" },
+  "error": { "photo": "Не вдалося прочитати фото", "signIn": "Увійди ще раз" },
+  "link": { "maps": "Мапа", "instagram": "Instagram", "tiktok": "TikTok", "booking": "Бронювання", "web": "Сайт" },
+  "when": {
+    "tomorrow": "завтра",
+    "inDays_one": "через {{count}} день", "inDays_few": "через {{count}} дні", "inDays_many": "через {{count}} днів", "inDays_other": "через {{count}} дня",
+    "dayOf": "день {{day}} з {{total}}",
+    "now": "Зараз у подорожі", "soon": "Попереду", "undated": "Ще без дат", "past": "Минулі поїздки"
+  },
+  "quick": {
+    "link": "Встав посилання", "paste": "Вставити", "name": "Назва",
+    "hint": "Посилання з Google Maps, Instagram чи сайту + назва, потім категорія — і все", "added": "Додано: {{name}}",
+    "needName": "Додай назву", "pasteFailed": "Не вдалося прочитати буфер — встав у поле"
+  },
+  "cat": { "all": "Усі", "see": "Подивитися", "do": "Зробити", "eat": "Поїсти" },
+  "place": {
+    "title": "Місце", "name": "Назва", "category": "Категорія", "link": "Посилання", "note": "Нотатка", "notePh": "Години роботи, що замовити, поради…",
+    "status": "Статус", "want": "Хочу", "been": "Була",
+    "empty": "Ще немає місць. Додай пам'ятки, активності й ресторани вгорі.", "emptyDream": "Ще немає ідей. Зберігай сюди місця й посилання з Instagram."
+  },
+  "plan": {
+    "day": "День", "dayN": "День {{n}}", "unplanned": "Ще не в плані", "poolEmpty": "Усе розплановано 🎉", "dayEmpty": "Перетягни місця сюди",
+    "dragHint": "Перетягни в день або натисни", "today": "сьогодні", "pickDay": "У який день?", "details": "Деталі",
+    "placesCount_one": "{{count}} місце", "placesCount_few": "{{count}} місця", "placesCount_many": "{{count}} місць", "placesCount_other": "{{count}} місця",
+    "oneDay": "Одноденна поїздка — усі місця на вкладці «Місця».", "noDates": "Додай дати поїздки, щоб розписати її по днях."
+  },
+  "memory": {
+    "trip": "Як пройшла поїздка?", "tripPh": "Кілька слів про поїздку…", "rating": "Оцінка", "words": "Кілька слів", "wordsPh": "Що сподобалося?",
+    "beenTitle_one": "Відвідала · {{count}}", "beenTitle_few": "Відвідала · {{count}}", "beenTitle_many": "Відвідала · {{count}}", "beenTitle_other": "Відвідала · {{count}}",
+    "beenEmpty": "Відмічай місця як «була» ✓ — і вони з'являться тут з оцінкою та фото.",
+    "rate": "Оцінити", "tickTitle": "Ще не відвідала"
+  },
+  "dream": {
+    "badge": "Мрія", "why": "Чому хочу", "ideas": "Місця та ідеї",
+    "convert": "Перетворити на поїздку", "convertHint": "Обери дати — усі місця перенесуться",
+    "convertText": "Мрія стане поїздкою з датами. Усі місця, посилання й нотатки залишаться.", "convertGo": "Зробити поїздкою"
+  },
+  "trip": {
+    "days_one": "{{count}} день", "days_few": "{{count}} дні", "days_many": "{{count}} днів", "days_other": "{{count}} дня",
+    "hotel": "Готель", "start": "З", "end": "До"
+  },
+  "tab": { "places": "Місця", "plan": "По днях", "memories": "Враження", "memoriesLater": "Враження" },
+  "form": {
+    "newTrip": "Нова поїздка", "newDream": "Нова мрія", "editTrip": "Редагувати поїздку", "editDream": "Редагувати мрію",
+    "coverAdd": "Додати обкладинку", "coverChange": "Змінити обкладинку", "coverRemove": "Прибрати",
+    "title": "Назва", "titlePh": "Рим з подругами", "titlePhDream": "Патагонія", "destination": "Країна / місто",
+    "destinationPh": "Італія, Рим", "destinationPhDream": "Аргентина, Чилі",
+    "whyPh": "Гори, льодовики, край світу…", "notes": "Нотатки",
+    "notesPh": "Квитки, бронювання, номери рейсів…", "notesPhDream": "Найкращий сезон, бюджет, як дістатися…",
+    "needTitle": "Додай назву", "deleteTrip": "Видалити поїздку", "deleteDream": "Видалити мрію"
+  },
+  "home": {
+    "stats": "Поїздок: {{trips}} · мрій: {{dreams}}", "trips": "Поїздки", "dreams": "Мрії", "addTrip": "Поїздка", "addDream": "Мрія",
+    "emptyTrips": "Поки немає поїздок. Додай наступну — або перетвори мрію на поїздку.", "emptyDreams": "Куди хочеш колись поїхати? Збережи тут, щоб натхнення ставало планами.",
+    "places_one": "{{count}} місце", "places_few": "{{count}} місця", "places_many": "{{count}} місць", "places_other": "{{count}} місця",
+    "beenOf": "відвідала {{been}} з {{count}}"
+  },
+  "settings": {
+    "title": "Налаштування", "language": "Мова", "signOut": "Вийти",
+    "install": "На iPhone: відкрий у Safari → Поділитися → На початковий екран — і працює як застосунок."
+  }
+}
