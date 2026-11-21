@@ -232,12 +232,12 @@ export function Segmented<T extends string>({ value, options, onChange }: { valu
 }
 
 // Text field that saves when it loses focus (and on Enter for single-line fields)
-export function AutoField({ value, onSave, placeholder, multiline, type = 'text', className }: { value: string | null; onSave: (v: string | null) => void; placeholder?: string; multiline?: boolean; type?: string; className?: string }) {
+export function AutoField({ value, onSave, placeholder, multiline, type = 'text', className, list }: { value: string | null; onSave: (v: string | null) => void; placeholder?: string; multiline?: boolean; type?: string; className?: string; list?: string }) {
   const [v, setV] = useState(value ?? '')
   useEffect(() => setV(value ?? ''), [value])
   const commit = () => { const next = v.trim() || null; if (next !== (value ?? null)) onSave(next) }
   return multiline
     ? <textarea className={className} value={v} placeholder={placeholder} rows={3} onChange={e => setV(e.target.value)} onBlur={commit} />
-    : <input className={className} type={type} value={v} placeholder={placeholder} onChange={e => setV(e.target.value)} onBlur={commit}
+    : <input className={className} type={type} list={list} value={v} placeholder={placeholder} onChange={e => setV(e.target.value)} onBlur={commit}
         onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur() }} />
 }

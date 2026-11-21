@@ -22,9 +22,15 @@ Same login as Capsule (signups disabled). `supabase/schema.sql` = full travel sc
 
 - `trips`: kind `trip|dream`, title, destination, start_date, end_date, cover_path, hotel_url, notes, why (dream
   reason), rating 1–5, impression, photos[]. "Turn into a trip" = set kind 'trip' + dates (places stay attached).
-- `trip_places`: trip_id, name, category `see|do|eat`, url, note, status `want|been`, day (1-based, null = not
+- `trip_places`: trip_id, name, category `see|do|eat`, city (optional city/region; the list groups and filters by it,
+  quick add keeps the last city), url, note, status `want|been`, day (1-based, null = not
   planned; a day beyond the trip length counts as not planned), sort (float, order inside a day), rating, impression, photos[].
 - Storage bucket `travel` (private, signed URLs): `<uid>/<uuid>.webp` + thumbnail `<uuid>_t.webp` (`thumbOf`).
+
+## Owner's way of using it
+
+Dreams are kept **one per country** (e.g. "Germany"), and places inside are narrowed down by city/region
+(e.g. Linderhof Palace → Bavaria, added as her example on 2026-11-21).
 
 ## Code
 

@@ -1,60 +1,176 @@
 {
-  "app": { "name": "My travels" },
-  "languages": { "uk": "Українська", "en": "English" },
-  "login": { "text": "Sign in with the same account as Capsule.", "email": "Email", "password": "Password", "go": "Sign in", "failed": "Wrong email or password" },
-  "common": { "uploading": "Uploading…", "close": "Close", "confirmDelete": "Tap again to delete", "delete": "Delete", "done": "Done", "cancel": "Cancel", "save": "Save", "back": "Back", "edit": "Edit", "notFound": "Not found. Maybe it was deleted." },
-  "photos": { "add": "Add photos" },
-  "error": { "photo": "Could not read the photo", "signIn": "Please sign in again" },
-  "link": { "maps": "Map", "instagram": "Instagram", "tiktok": "TikTok", "booking": "Booking", "web": "Website" },
+  "app": {
+    "name": "My travels"
+  },
+  "languages": {
+    "uk": "Українська",
+    "en": "English"
+  },
+  "login": {
+    "text": "Sign in with the same account as Capsule.",
+    "email": "Email",
+    "password": "Password",
+    "go": "Sign in",
+    "failed": "Wrong email or password"
+  },
+  "common": {
+    "uploading": "Uploading…",
+    "close": "Close",
+    "confirmDelete": "Tap again to delete",
+    "delete": "Delete",
+    "done": "Done",
+    "cancel": "Cancel",
+    "save": "Save",
+    "back": "Back",
+    "edit": "Edit",
+    "notFound": "Not found. Maybe it was deleted."
+  },
+  "photos": {
+    "add": "Add photos"
+  },
+  "error": {
+    "photo": "Could not read the photo",
+    "signIn": "Please sign in again"
+  },
+  "link": {
+    "maps": "Map",
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "booking": "Booking",
+    "web": "Website"
+  },
   "when": {
-    "tomorrow": "tomorrow", "inDays_one": "in {{count}} day", "inDays_other": "in {{count}} days", "dayOf": "day {{day}} of {{total}}",
-    "now": "Travelling now", "soon": "Coming up", "undated": "No dates yet", "past": "Past trips"
+    "tomorrow": "tomorrow",
+    "inDays_one": "in {{count}} day",
+    "inDays_other": "in {{count}} days",
+    "dayOf": "day {{day}} of {{total}}",
+    "now": "Travelling now",
+    "soon": "Coming up",
+    "undated": "No dates yet",
+    "past": "Past trips"
   },
   "quick": {
-    "link": "Paste a link", "paste": "Paste", "name": "Name",
-    "hint": "Link from Google Maps, Instagram or a website + name, then a category — done", "added": "Added: {{name}}",
-    "needName": "Add a name", "pasteFailed": "Could not read the clipboard — paste into the field"
+    "link": "Paste a link",
+    "paste": "Paste",
+    "name": "Name",
+    "hint": "Link from Google Maps, Instagram or a website + name, then a category — done",
+    "added": "Added: {{name}}",
+    "needName": "Add a name",
+    "pasteFailed": "Could not read the clipboard — paste into the field",
+    "city": "City or region (optional)"
   },
-  "cat": { "all": "All", "see": "See", "do": "Do", "eat": "Eat" },
+  "cat": {
+    "all": "All",
+    "see": "See",
+    "do": "Do",
+    "eat": "Eat"
+  },
   "place": {
-    "title": "Place", "name": "Name", "category": "Category", "link": "Link", "note": "Note", "notePh": "Opening hours, what to order, tips…",
-    "status": "Status", "want": "Want to go", "been": "Been",
-    "empty": "No places yet. Add sights, activities and restaurants above.", "emptyDream": "No ideas yet. Save places and links from Instagram here."
+    "title": "Place",
+    "name": "Name",
+    "category": "Category",
+    "link": "Link",
+    "note": "Note",
+    "notePh": "Opening hours, what to order, tips…",
+    "status": "Status",
+    "want": "Want to go",
+    "been": "Been",
+    "empty": "No places yet. Add sights, activities and restaurants above.",
+    "emptyDream": "No ideas yet. Save places and links from Instagram here.",
+    "city": "City / region",
+    "noneHere": "Nothing here yet."
   },
   "plan": {
-    "day": "Day", "dayN": "Day {{n}}", "unplanned": "Not planned yet", "poolEmpty": "Everything is planned 🎉", "dayEmpty": "Drop places here",
-    "dragHint": "Drag into a day, or tap", "today": "today", "pickDay": "Which day?", "details": "Details",
-    "placesCount_one": "{{count}} place", "placesCount_other": "{{count}} places",
-    "oneDay": "A one-day trip — all places are on the Places tab.", "noDates": "Add dates to the trip to plan it day by day."
+    "day": "Day",
+    "dayN": "Day {{n}}",
+    "unplanned": "Not planned yet",
+    "poolEmpty": "Everything is planned 🎉",
+    "dayEmpty": "Drop places here",
+    "dragHint": "Drag into a day, or tap",
+    "today": "today",
+    "pickDay": "Which day?",
+    "details": "Details",
+    "placesCount_one": "{{count}} place",
+    "placesCount_other": "{{count}} places",
+    "oneDay": "A one-day trip — all places are on the Places tab.",
+    "noDates": "Add dates to the trip to plan it day by day."
   },
   "memory": {
-    "trip": "How was the trip?", "tripPh": "A few words about the trip…", "rating": "Rating", "words": "A few words", "wordsPh": "What did you love?",
-    "beenTitle_one": "Visited · {{count}}", "beenTitle_other": "Visited · {{count}}", "beenEmpty": "Tick places as visited ✓ and they will appear here with your rating and photos.",
-    "rate": "Rate", "tickTitle": "Not visited yet"
+    "trip": "How was the trip?",
+    "tripPh": "A few words about the trip…",
+    "rating": "Rating",
+    "words": "A few words",
+    "wordsPh": "What did you love?",
+    "beenTitle_one": "Visited · {{count}}",
+    "beenTitle_other": "Visited · {{count}}",
+    "beenEmpty": "Tick places as visited ✓ and they will appear here with your rating and photos.",
+    "rate": "Rate",
+    "tickTitle": "Not visited yet"
   },
   "dream": {
-    "badge": "Dream", "why": "Why I want to go", "ideas": "Places and ideas",
-    "convert": "Turn into a trip", "convertHint": "Pick dates — all places move with it",
-    "convertText": "The dream becomes a trip with dates. All places, links and notes stay.", "convertGo": "Make it a trip"
+    "badge": "Dream",
+    "why": "Why I want to go",
+    "ideas": "Places and ideas",
+    "convert": "Turn into a trip",
+    "convertHint": "Pick dates — all places move with it",
+    "convertText": "The dream becomes a trip with dates. All places, links and notes stay.",
+    "convertGo": "Make it a trip"
   },
-  "trip": { "days_one": "{{count}} day", "days_other": "{{count}} days", "hotel": "Hotel", "start": "From", "end": "To" },
-  "tab": { "places": "Places", "plan": "By day", "memories": "Memories", "memoriesLater": "Memories" },
+  "trip": {
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "hotel": "Hotel",
+    "start": "From",
+    "end": "To"
+  },
+  "tab": {
+    "places": "Places",
+    "plan": "By day",
+    "memories": "Memories",
+    "memoriesLater": "Memories"
+  },
   "form": {
-    "newTrip": "New trip", "newDream": "New dream", "editTrip": "Edit trip", "editDream": "Edit dream",
-    "coverAdd": "Add a cover", "coverChange": "Change cover", "coverRemove": "Remove",
-    "title": "Title", "titlePh": "Rome with friends", "titlePhDream": "Patagonia", "destination": "Country / city",
-    "destinationPh": "Italy, Rome", "destinationPhDream": "Argentina, Chile",
-    "whyPh": "Mountains, glaciers, the end of the world…", "notes": "Notes",
-    "notesPh": "Tickets, bookings, flight numbers…", "notesPhDream": "Best season, budget, how to get there…",
-    "needTitle": "Add a title", "deleteTrip": "Delete trip", "deleteDream": "Delete dream"
+    "newTrip": "New trip",
+    "newDream": "New dream",
+    "editTrip": "Edit trip",
+    "editDream": "Edit dream",
+    "coverAdd": "Add a cover",
+    "coverChange": "Change cover",
+    "coverRemove": "Remove",
+    "title": "Title",
+    "titlePh": "Rome with friends",
+    "titlePhDream": "Germany",
+    "destination": "Country / city",
+    "destinationPh": "Italy, Rome",
+    "destinationPhDream": "Country",
+    "whyPh": "Mountains, glaciers, the end of the world…",
+    "notes": "Notes",
+    "notesPh": "Tickets, bookings, flight numbers…",
+    "notesPhDream": "Best season, budget, how to get there…",
+    "needTitle": "Add a title",
+    "deleteTrip": "Delete trip",
+    "deleteDream": "Delete dream"
   },
   "home": {
-    "stats": "{{trips}} trips · {{dreams}} dreams", "trips": "Trips", "dreams": "Dreams", "addTrip": "Trip", "addDream": "Dream",
-    "emptyTrips": "No trips yet. Add the next one — or turn a dream into a trip.", "emptyDreams": "Where do you want to go one day? Save it here so the inspiration turns into plans.",
-    "places_one": "{{count}} place", "places_other": "{{count}} places", "beenOf": "{{been}} of {{count}} visited"
+    "stats": "{{trips}} trips · {{dreams}} dreams",
+    "trips": "Trips",
+    "dreams": "Dreams",
+    "addTrip": "Trip",
+    "addDream": "Dream",
+    "emptyTrips": "No trips yet. Add the next one — or turn a dream into a trip.",
+    "emptyDreams": "Where do you want to go one day? Keep one dream per country and collect places there, city by city.",
+    "places_one": "{{count}} place",
+    "places_other": "{{count}} places",
+    "beenOf": "{{been}} of {{count}} visited"
   },
   "settings": {
-    "title": "Settings", "language": "Language", "signOut": "Sign out",
+    "title": "Settings",
+    "language": "Language",
+    "signOut": "Sign out",
     "install": "On iPhone: open in Safari → Share → Add to Home Screen, and it works like an app."
+  },
+  "city": {
+    "all": "All cities",
+    "none": "No city"
   }
 }

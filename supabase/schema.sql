@@ -55,3 +55,6 @@ drop policy if exists "travel own folder" on storage.objects;
 create policy "travel own folder" on storage.objects for all to authenticated
   using (bucket_id = 'travel' and (storage.foldername(name))[1] = auth.uid()::text)
   with check (bucket_id = 'travel' and (storage.foldername(name))[1] = auth.uid()::text);
+
+-- 2026-11-21: city or region inside a trip/dream (dreams are kept per country, places narrowed down to cities)
+alter table trip_places add column if not exists city text;

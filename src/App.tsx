@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { t, lang, LANGUAGES, remember } from './i18n'
-import { supabase, countdown, formatRange, whenOf, type Trip } from './lib'
+import { supabase, citiesOf, countdown, formatRange, whenOf, type Trip } from './lib'
 import { StoreProvider, useStore } from './store'
 import { Cover, Icon, Segmented, Sheet, go, useHash } from './ui'
 import { TripForm, TripPage } from './Trip'
@@ -122,7 +122,7 @@ function Home({ section, error }: { section: 'trips' | 'dreams'; error: string |
 
         {section === 'dreams' && (dreams.length === 0
           ? <Empty text={t('home.emptyDreams')} href="#/new/dream" cta={t('home.addDream')} />
-          : <div className="grid">{dreams.map(x => <TripCard key={x.id} trip={x} />)}</div>)}
+          : <div className="grid">{[...dreams].sort((a, b) => a.title.localeCompare(b.title)).map(x => <TripCard key={x.id} trip={x} />)}</div>)}
       </div>
       {settings && <Settings onClose={() => setSettings(false)} />}
     </div>
@@ -153,6 +153,7 @@ function TripCard({ trip }: { trip: Trip }) {
       <div className="trip-card-body">
         <b>{trip.title}</b>
         {trip.destination && <span className="muted small">{trip.destination}</span>}
+        {trip.kind === 'dream' && citiesOf(mine).length > 0 && <span className="small card-cities">📍 {citiesOf(mine).slice(0, 4).join(' · ')}</span>}
         <span className="small card-meta">
           {trip.kind === 'trip' && trip.start_date && <span>{formatRange(trip.start_date, trip.end_date)}</span>}
           {mine.length > 0 && <span className="muted">{whenOf(trip) === 'past' ? t('home.beenOf', { been, count: mine.length }) : t('home.places', { count: mine.length })}</span>}

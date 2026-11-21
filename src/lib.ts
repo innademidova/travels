@@ -35,6 +35,7 @@ export type Place = {
   trip_id: string
   name: string
   category: Category
+  city: string | null
   url: string | null
   note: string | null
   status: 'want' | 'been'
@@ -245,4 +246,11 @@ export function gradientFor(seed: string) {
   for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) >>> 0
   const a = h % 360, b = (a + 40 + (h >> 9) % 60) % 360
   return `linear-gradient(135deg, hsl(${a} 55% 62%), hsl(${b} 60% 45%))`
+}
+
+// Cities used in a list of places, most used first
+export function citiesOf(places: { city: string | null }[]) {
+  const n = new Map<string, number>()
+  for (const p of places) if (p.city) n.set(p.city, (n.get(p.city) ?? 0) + 1)
+  return [...n.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([c]) => c)
 }

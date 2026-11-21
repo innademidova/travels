@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { t } from './i18n'
 import { useStore } from './store'
-import { CATEGORIES, CATEGORY_EMOJI, addDays, extractUrl, formatDay, guessName, isUrl, normalizeUrl, tripDays, type Category, type Place, type Trip } from './lib'
+import { CATEGORIES, citiesOf, CATEGORY_EMOJI, addDays, extractUrl, formatDay, guessName, isUrl, normalizeUrl, tripDays, type Category, type Place, type Trip } from './lib'
 import { AutoField, ConfirmDelete, Icon, LinkChip, PhotoGrid, Sheet, Stars } from './ui'
 
 // Quick add: paste a link (the name is guessed from Google Maps links), type a name, tap a category — saved
-export function QuickAdd({ trip }: { trip: Trip }) {
-  const { addPlace } = useStore()
+export function QuickAdd({ trip, city: preset }: { trip: Trip; city?: string | null }) {
+  const { addPlace, places } = useStore()
+  const cities = citiesOf(places.filter(p => p.trip_id === trip.id))
+  // The city stays filled after saving, so several places in one city are quick to add
+  const [city, setCity] = useState(preset ?? '')
+  useEffect(() => { if (preset !== undefined) setCity(preset ?? '') }, [preset])
   const [link, setLink] = useState('')
   const [name, setName] = useState('')
   const [touched, setTouched] = useState(false)
@@ -41,7 +45,7 @@ export function QuickAdd({ trip }: { trip: Trip }) {
     if (!n) { setError(t('quick.needName')); nameRef.current?.focus(); return }
     setBusy(true); setError('')
     try {
-      await addPlace({ trip_id: trip.id, name: n, category, url: link ? normalizeUrl(link) : null })
+      await addPlace({ trip_id: trip.id, name: n, category, url: link ? normalizeUrl(link) : null, city: city.trim() || null })
       setLink(''); setName(''); setTouched(false)
       setDone(n); setTimeout(() => setDone(''), 2200)
     } catch (e) { setError((e as Error).message) }
@@ -60,6 +64,8 @@ export function QuickAdd({ trip }: { trip: Trip }) {
       <input ref={nameRef} value={name} placeholder={t('quick.name')}
         onChange={e => { setName(e.target.value); setTouched(true) }}
         onKeyDown={e => { if (e.key === 'Enter') save('see') }} />
+      <input value={city} list={`cities-${trip.id}`} placeholder={t('quick.city')} onChange={e => setCity(e.target.value)} />
+      <CityList id={`cities-${trip.id}`} cities={cities} />
       <div className="quick-cats">
         {CATEGORIES.map(c => (
           <button key={c} type="button" className={`cat-btn ${c}`} disabled={busy} onClick={() => save(c)}>
@@ -72,6 +78,10 @@ export function QuickAdd({ trip }: { trip: Trip }) {
         : <p className="hint">{t('quick.hint')}</p>}
     </div>
   )
+}
+
+function CityList({ id, cities }: { id: string; cities: string[] }) {
+  return <datalist id={id}>{cities.map(c => <option key={c} value={c} />)}</datalist>
 }
 
 export function PlaceRow({ place, onOpen, showDay, trip }: { place: Place; onOpen: () => void; showDay?: boolean; trip?: Trip }) {
@@ -101,19 +111,39 @@ export function PlaceRow({ place, onOpen, showDay, trip }: { place: Place; onOpe
 export function PlacesList({ trip }: { trip: Trip }) {
   const { places } = useStore()
   const [filter, setFilter] = useState<'all' | Category>('all')
+  const [cityFilter, setCityFilter] = useState<string | null>(null)
   const [open, setOpen] = useState<string | null>(null)
   const mine = places.filter(p => p.trip_id === trip.id)
-  const shown = mine.filter(p => filter === 'all' || p.category === filter)
+  const cities = citiesOf(mine)
+  const noCity = mine.some(p => !p.city)
+  const NONE = '\u0000'
+  const inCity = mine.filter(p => cityFilter == null || (cityFilter === NONE ? !p.city : p.city === cityFilter))
+  const shown = inCity.filter(p => filter === 'all' || p.category === filter)
     .sort((a, b) => Number(a.status === 'been') - Number(b.status === 'been') || a.created_at.localeCompare(b.created_at))
   const openPlace = mine.find(p => p.id === open)
+  // Grouped by city when there are cities and no single city is chosen
+  const groups = cities.length && cityFilter == null
+    ? [...cities.map(c => ({ city: c as string | null, list: shown.filter(p => p.city === c) })), { city: null, list: shown.filter(p => !p.city) }].filter(g => g.list.length)
+    : [{ city: undefined as string | null | undefined, list: shown }]
 
   return (
     <div className="stack">
-      <QuickAdd trip={trip} />
+      <QuickAdd trip={trip} city={cityFilter == null ? undefined : cityFilter === NONE ? null : cityFilter} />
+      {cities.length > 0 && (
+        <div className="chips">
+          <button className={`chip ${cityFilter == null ? 'on' : ''}`} onClick={() => setCityFilter(null)}>📍 {t('city.all')}</button>
+          {cities.map(c => (
+            <button key={c} className={`chip ${cityFilter === c ? 'on' : ''}`} onClick={() => setCityFilter(c)}>
+              {c} <span className="count">{mine.filter(p => p.city === c).length}</span>
+            </button>
+          ))}
+          {noCity && <button className={`chip ${cityFilter === NONE ? 'on' : ''}`} onClick={() => setCityFilter(NONE)}>{t('city.none')}</button>}
+        </div>
+      )}
       {mine.length > 0 && (
         <div className="chips">
           {(['all', ...CATEGORIES] as const).map(c => {
-            const n = c === 'all' ? mine.length : mine.filter(p => p.category === c).length
+            const n = c === 'all' ? inCity.length : inCity.filter(p => p.category === c).length
             return (
               <button key={c} className={`chip ${filter === c ? 'on' : ''}`} onClick={() => setFilter(c)}>
                 {c !== 'all' && CATEGORY_EMOJI[c] + ' '}{t(c === 'all' ? 'cat.all' : 'cat.' + c)} <span className="count">{n}</span>
@@ -124,15 +154,23 @@ export function PlacesList({ trip }: { trip: Trip }) {
       )}
       {mine.length === 0
         ? <p className="empty">{t(trip.kind === 'dream' ? 'place.emptyDream' : 'place.empty')}</p>
-        : <div className="card list">{shown.map(p => <PlaceRow key={p.id} place={p} trip={trip} showDay onOpen={() => setOpen(p.id)} />)}</div>}
+        : shown.length === 0
+          ? <p className="empty">{t('place.noneHere')}</p>
+          : groups.map(g => (
+              <div key={g.city ?? '-'} className="stack tight">
+                {g.city !== undefined && <h3 className="section-title">{g.city ? '📍 ' + g.city : t('city.none')}</h3>}
+                <div className="card list">{g.list.map(p => <PlaceRow key={p.id} place={p} trip={trip} showDay onOpen={() => setOpen(p.id)} />)}</div>
+              </div>
+            ))}
       {openPlace && <PlaceSheet place={openPlace} trip={trip} onClose={() => setOpen(null)} />}
     </div>
   )
 }
 
 export function PlaceSheet({ place, trip, onClose }: { place: Place; trip: Trip; onClose: () => void }) {
-  const { updatePlace, deletePlace } = useStore()
+  const { updatePlace, deletePlace, places } = useStore()
   const save = (patch: Partial<Place>) => updatePlace(place.id, patch)
+  const cities = citiesOf(places.filter(p => p.trip_id === trip.id))
   const days = tripDays(trip)
   const been = place.status === 'been'
   const [url, setUrl] = useState(place.url ?? '')
@@ -154,6 +192,11 @@ export function PlaceSheet({ place, trip, onClose }: { place: Place; trip: Trip;
           ))}
         </div>
       </div>
+      <label className="field">
+        <span>{t('place.city')}</span>
+        <AutoField value={place.city} list={`sheet-cities-${trip.id}`} placeholder={t('quick.city')} onSave={v => save({ city: v })} />
+        <CityList id={`sheet-cities-${trip.id}`} cities={cities} />
+      </label>
       <label className="field">
         <span>{t('place.link')}</span>
         <div className="quick-row">

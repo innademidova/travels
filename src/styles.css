@@ -283,3 +283,6 @@ div.loading { background: var(--soft); }
 .login { max-width: 360px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 24px; text-align: center; }
 .login h1 { font-family: 'Fraunces', Georgia, serif; font-size: 34px; }
 .login-mark { font-size: 46px; color: var(--accent); }
+.stack.tight { gap: 0; }
+.stack.tight .section-title { margin-top: 4px; }
+.card-cities { color: var(--accent); font-weight: 600; margin-top: 2px; }
