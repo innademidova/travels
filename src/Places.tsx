@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { t } from './i18n'
 import { useStore } from './store'
 import { CATEGORIES, citiesOf, CATEGORY_EMOJI, addDays, extractUrl, formatDay, guessName, isUrl, normalizeUrl, tripDays, type Category, type Place, type Trip } from './lib'
-import { AutoField, ConfirmDelete, Icon, LinkChip, PhotoGrid, Sheet, Stars } from './ui'
+import { AutoField, ConfirmDelete, Icon, Img, LinkChip, PhotoGrid, Sheet, Stars } from './ui'
 
 // Quick add: paste a link (the name is guessed from Google Maps links), type a name, tap a category — saved
 export function QuickAdd({ trip, city: preset }: { trip: Trip; city?: string | null }) {
@@ -90,7 +90,9 @@ export function PlaceRow({ place, onOpen, showDay, trip }: { place: Place; onOpe
   const days = trip ? tripDays(trip) : 0
   return (
     <div className={`place-row ${been ? 'been' : ''}`} onClick={onOpen}>
-      <span className={`cat-dot ${place.category}`} title={t('cat.' + place.category)}>{CATEGORY_EMOJI[place.category]}</span>
+      {place.photos[0]
+        ? <span className="place-thumb"><Img path={place.photos[0]} thumb /><span className={`thumb-badge ${place.category}`}>{CATEGORY_EMOJI[place.category]}</span></span>
+        : <span className={`cat-dot ${place.category}`} title={t('cat.' + place.category)}>{CATEGORY_EMOJI[place.category]}</span>}
       <div className="grow place-main">
         <div className="place-name">{place.name}</div>
         <div className="place-meta">
@@ -178,6 +180,7 @@ export function PlaceSheet({ place, trip, onClose }: { place: Place; trip: Trip;
 
   return (
     <Sheet title={t('place.title')} onClose={onClose}>
+      <PhotoGrid paths={place.photos} hero onChange={photos => save({ photos })} />
       <label className="field">
         <span>{t('place.name')}</span>
         <AutoField value={place.name} onSave={v => v && save({ name: v })} />
@@ -238,9 +241,9 @@ export function PlaceSheet({ place, trip, onClose }: { place: Place; trip: Trip;
             <span>{t('memory.words')}</span>
             <AutoField value={place.impression} multiline placeholder={t('memory.wordsPh')} onSave={v => save({ impression: v })} />
           </label>
-          <PhotoGrid paths={place.photos} onChange={photos => save({ photos })} />
         </div>
       )}
+
       <div className="sheet-foot">
         <ConfirmDelete onConfirm={() => { onClose(); deletePlace(place.id) }} />
         <button className="btn primary" onClick={onClose}>{t('common.done')}</button>

@@ -107,13 +107,16 @@ export function PhotoButton({ onAdded, multiple = true, label, className }: { on
   )
 }
 
-export function PhotoGrid({ paths, onChange }: { paths: string[]; onChange?: (next: string[]) => void }) {
+export function PhotoGrid({ paths, onChange, hero }: { paths: string[]; onChange?: (next: string[]) => void; hero?: boolean }) {
   const [open, setOpen] = useState<number | null>(null)
   return (
     <>
-      {paths.length > 0 && (
+      {hero && paths[0] && (
+        <button className="photo-hero" onClick={() => setOpen(0)}><Img path={paths[0]} /></button>
+      )}
+      {paths.length > (hero ? 1 : 0) && (
         <div className="photo-grid">
-          {paths.map((p, i) => (
+          {paths.map((p, i) => (hero && i === 0 ? null :
             <button key={p} className="photo-tile" onClick={() => setOpen(i)}><Img path={p} thumb /></button>
           ))}
         </div>
@@ -237,7 +240,7 @@ export function AutoField({ value, onSave, placeholder, multiline, type = 'text'
   useEffect(() => setV(value ?? ''), [value])
   const commit = () => { const next = v.trim() || null; if (next !== (value ?? null)) onSave(next) }
   return multiline
-    ? <textarea className={className} value={v} placeholder={placeholder} rows={3} onChange={e => setV(e.target.value)} onBlur={commit} />
+    ? <textarea className={className} value={v} placeholder={placeholder} rows={Math.min(16, Math.max(3, v.split('\n').reduce((n, l) => n + Math.ceil((l.length + 1) / 42), 0)))} onChange={e => setV(e.target.value)} onBlur={commit} />
     : <input className={className} type={type} list={list} value={v} placeholder={placeholder} onChange={e => setV(e.target.value)} onBlur={commit}
         onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur() }} />
 }

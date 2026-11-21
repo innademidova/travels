@@ -126,7 +126,7 @@ img.loading { opacity: 0; }
 img.in { opacity: 1; transition: opacity .25s; }
 div.loading { background: var(--soft); }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
 @media (min-width: 700px) { .grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; } }
 .trip-card { background: var(--card); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: transform .15s; }
 .trip-card:active { transform: scale(.98); }
@@ -286,3 +286,8 @@ div.loading { background: var(--soft); }
 .stack.tight { gap: 0; }
 .stack.tight .section-title { margin-top: 4px; }
 .card-cities { color: var(--accent); font-weight: 600; margin-top: 2px; }
+.photo-hero { position: relative; display: block; flex-shrink: 0; width: 100%; aspect-ratio: 16 / 10; border-radius: 16px; overflow: hidden; background: var(--soft); }
+.photo-hero img, .photo-hero .loading { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.place-thumb { position: relative; width: 52px; height: 52px; border-radius: 14px; overflow: hidden; flex: none; background: var(--soft); }
+.place-thumb img, .place-thumb .loading { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.thumb-badge { position: absolute; right: 2px; bottom: 2px; font-size: 12px; line-height: 1; padding: 3px; border-radius: 7px; background: var(--glass); }

@@ -31,6 +31,11 @@ Same login as Capsule (signups disabled). `supabase/schema.sql` = full travel sc
 
 Dreams are kept **one per country** (e.g. "Germany"), and places inside are narrowed down by city/region
 (e.g. Linderhof Palace → Bavaria, added as her example on 2026-11-21).
+She sends reel screenshots; Claude saves them: creates the country dream if needed, names the place, sets city/region,
+adds a "ℹ️ Довідка" block (facts checked by web search) and photos: her screenshot first, then freely licensed photos
+from Wikimedia Commons (API search, 1280px thumbs; the API rate-limits, so pause between requests), with a
+"Фото: Wikimedia Commons — author (licence)" line at the end of the note. Photos are shown for every place (not only
+visited ones): the first one large at the top of the place sheet and as the thumbnail in lists.
 
 ## Code
 
